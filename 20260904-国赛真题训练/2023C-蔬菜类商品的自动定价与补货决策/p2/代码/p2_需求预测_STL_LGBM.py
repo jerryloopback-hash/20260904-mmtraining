@@ -46,7 +46,7 @@ plt.rcParams["font.sans-serif"] = ["Microsoft YaHei"]
 plt.rcParams["axes.unicode_minus"] = False
 
 # ---------------- 配置 ----------------
-A1, A2 = "附件1.xlsx", "附件2.xlsx"
+A1, A2 = "../附件1.xlsx", "../附件2.xlsx"   # 原始附件在上级目录(2023C 根)
 PROF = "p2_品类日内画像.csv"
 QUANTILES = [0.1, 0.5, 0.9]
 FOLD_START, FOLD_END = "2023-01-02", "2023-06-17"   # 每折预测其后 7 天

@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "PowerShell(Set-Location \"c:\\\\Users\\\\adminl\\\\Desktop\\\\20260904-mmtraining\\\\20260904-国赛真题训练\\\\2023C-蔬菜类商品的自动定价与补货决策\\\\p2\"; & \"$env:LOCALAPPDATA\\\\Programs\\\\MiKTeX\\\\miktex\\\\bin\\\\x64\\\\xelatex.exe\" -interaction=nonstopmode -halt-on-error \"论文预览.tex\" | Select-Object -Last 1; & \"$env:LOCALAPPDATA\\\\Programs\\\\MiKTeX\\\\miktex\\\\bin\\\\x64\\\\xelatex.exe\" -interaction=nonstopmode -halt-on-error \"论文预览.tex\" | Select-Object -Last 2)"
+    ]
+  }
+}

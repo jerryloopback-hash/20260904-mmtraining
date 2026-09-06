@@ -47,7 +47,7 @@ plt.rcParams["font.sans-serif"] = ["Microsoft YaHei"]
 plt.rcParams["axes.unicode_minus"] = False
 
 # ---------------- 配置(队友换清洗后数据,改这三个路径即可) ----------------
-A1, A2, A4 = "附件1.xlsx", "附件2.xlsx", "附件4.xlsx"
+A1, A2, A4 = "../附件1.xlsx", "../附件2.xlsx", "../附件4.xlsx"   # 原始附件在上级目录
 CLEAR_HOUR = 19                  # ≥19 时 → 清仓渠道;<19 时的打折 → 品相渠道
 HOUR_LO, HOUR_HI = 8, 22         # 分析窗口(窗口外记录占比在控制台报告)
 RATIO_LO, RATIO_HI = 0.2, 1.5    # 折后价/原价 合理域,域外剔除(仅影响价格统计)
