@@ -1,0 +1,13 @@
+# ==== 不上传 GitHub 的私人文件 ====
+新建文件夹/
+
+# ==== Office 临时锁文件 ====
+~$*
+
+# ==== LaTeX 编译中间文件 ====
+*.aux
+*.log
+*.out
+*.synctex.gz
+*.fls
+*.fdb_latexmk
