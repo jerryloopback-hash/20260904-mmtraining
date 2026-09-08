@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>古代玻璃制品的风化统计规律与风化前成分还原 —— 2022 CUMCM C 题问题一（后半部分）</title>
+<style>
+  :root { --ink:#1f2430; --muted:#6b7280; --line:#e2e5ea; --accent:#1d4ed8; --bg:#fafaf9; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink);
+         font-family:"Noto Serif SC","Source Han Serif SC","SimSun",serif;
+         font-size:16px; line-height:1.85; }
+  .page { max-width:900px; margin:0 auto; background:#fff; padding:56px 64px 72px;
+          box-shadow:0 0 24px rgba(0,0,0,.06); }
+  header.doc-meta { text-align:center; border-bottom:3px double var(--ink); padding-bottom:14px; margin-bottom:34px; }
+  header.doc-meta .kicker { font-family:"Noto Sans SC","SimHei",sans-serif; font-size:13px;
+         letter-spacing:.35em; color:var(--accent); margin-bottom:10px; }
+  h1 { font-family:"Noto Sans SC","SimHei",sans-serif; font-size:27px; text-align:center;
+       margin:6px 0 10px; line-height:1.4; }
+  p.subtitle { text-align:center; color:var(--muted); font-size:14.5px; margin:0 0 8px; }
+  h2 { font-family:"Noto Sans SC","SimHei",sans-serif; font-size:19px; margin:42px 0 14px;
+       padding-left:12px; border-left:4px solid var(--accent); line-height:1.4; }
+  h3 { font-family:"Noto Sans SC","SimHei",sans-serif; font-size:16px; margin:28px 0 10px; }
+  p { margin:10px 0; text-align:justify; }
+  p#first-para, blockquote { }
+  blockquote { margin:18px 0; padding:12px 18px; background:#f1f5f9; border-left:4px solid #94a3b8;
+               color:#334155; font-size:14.5px; }
+  blockquote p { margin:0; }
+  table { border-collapse:collapse; width:100%; margin:8px 0 18px; font-size:13.5px;
+          font-family:"Noto Sans SC","SimHei",sans-serif; }
+  th, td { border:1px solid var(--line); padding:7px 10px; text-align:center; }
+  th { background:#eef1f6; font-weight:700; }
+  tr:nth-child(even) td { background:#fafbfd; }
+  .tbl-cap, .fig-cap { text-align:center; font-family:"Noto Sans SC","SimHei",sans-serif;
+        font-size:14px; margin:16px 0 6px; }
+  .tbl-cap strong, .fig-cap strong { color:var(--ink); }
+  img { display:block; max-width:100%; height:auto; margin:6px auto; }
+  .formula { text-align:center; font-size:15.5px; margin:14px 0; letter-spacing:.02em; }
+  ol, ul { padding-left:2em; margin:8px 0; }
+  li { margin:5px 0; text-align:justify; }
+  hr { border:none; border-top:1px solid var(--line); margin:34px 0; }
+  footer { margin-top:44px; padding-top:14px; border-top:1px solid var(--line);
+           color:var(--muted); font-size:12.5px; text-align:center;
+           font-family:"Noto Sans SC","SimHei",sans-serif; }
+  strong { font-weight:700; }
+  @media print { body { background:#fff; } .page { box-shadow:none; padding:0; max-width:none; } }
+  @media (max-width:720px) { .page { padding:28px 20px 48px; } }
+</style>
+</head>
+<body>
+<div class="page">
+<header class="doc-meta">
+  <div class="kicker">2022 年高教社杯全国大学生数学建模竞赛 · C 题专项</div>
+  <h1>古代玻璃制品的风化统计规律与风化前成分还原</h1>
+  <p class="subtitle">—— 问题一（后半部分）：风化化学成分统计规律 · 风化程度指数 · 风化前成分预测 ——</p>
+</header>
+<h1>古代玻璃制品的风化统计规律与风化前成分还原</h1>
+<p><strong>——2022 年高教社杯全国大学生数学建模竞赛 C 题问题一（后半部分）专项论文</strong></p>
+<blockquote>
+<p><strong>范围说明</strong>：本文仅针对问题一的后半部分展开，即（i）结合玻璃类型，分析文物表面有无风化的化学成分统计规律；（ii）依据风化点的检测数据，预测其风化前的化学成分含量。问题一前半部分（风化与类型、纹饰、颜色的关联分析）与本问题（二至四问）的内容不在本文范围内，仅在必要时作定性衔接。</p>
+</blockquote>
+<h2>摘要</h2>
+<p>针对古代玻璃制品"表面有无风化"与"风化前成分还原"两个问题，本文以附件表单 2 的 69 条采样点数据（经有效性筛选保留 67 条）为基础，建立了"闭合归一化—非参数检验—连续风化指数—稳健分布映射还原"的完整建模流程。</p>
+<p><strong>在统计规律层面</strong>，为消除检测总量漂移的影响，先将 14 种成分闭合归一化至 100%；再对每种玻璃类型的各成分做 Mann-Whitney U 检验，辅以 Cliff's δ 效应量刻画变化幅度，并做 Benjamini-Hochberg FDR 多重校正；另以 CLR 对数比变换做成分数据敏感性分析。结果表明：高钾玻璃风化的实质是 K2O、MgO、Al2O3、P2O5 等可溶组分大量流失（K2O 下降 94.3%），难溶的 SiO2 占比被动抬高（上升 36.3%）；铅钡玻璃风化的实质是富硅骨架溶解流失与环境磷、钙渗入，SiO2 下降 53.9%，PbO、P2O5、CaO 占比分别上升 98.8%、398.9%、108.8%。两类玻璃风化方向截然相反，显著成分经 FDR 校正（q&lt;0.05）与 CLR 敏感性验证后依然稳健。</p>
+<p><strong>在风化程度层面</strong>，将"有/无风化"的二值标签升级为连续型风化程度指数：以显著成分的风化前组标准化得分构造风化方向向量，取样本投影作为指数，并经 PC1 对照、留一排序稳定性、噪声地板三重稳健性检查；标签盲检验发现"严重风化点"标签反映取样部位（风化层），与成分偏移幅度相关但不等价；Spearman 剂量-反应检验表明主要显著成分沿风化程度单调渐变，统计规律由"两档对比"升级为"剂量-反应"关系。</p>
+<p><strong>在成分还原层面</strong>，建立两个预测模型：模型一（主模型）在同类型内对风化前组与风化组做分位数配对，以 Theil-Sen 稳健回归拟合各成分的分布映射，预测后闭合归一化，并用 B=1000 次联合 bootstrap 给出与闭合约束自洽的 90% 预测区间；模型二（对照）采用均值比例缩放法。以 49、50 号同时含风化点与未风化点的文物做留一配对验证，两模型平均绝对误差分别为 2.20 与 1.51 个百分点；预测值落入同类型风化前经验区间的比例为 81%–100%，检出 SiO2 与还原 SiO2 的排序一致性达 ρ≥0.94，两方案预测平均仅差 1.06 个百分点，交叉印证了结果可信。最后讨论了小样本、极端风化点与个体差异带来的不确定性。</p>
+<p><strong>关键词</strong>：闭合归一化；Mann-Whitney U 检验；Cliff's δ；FDR 校正；CLR 对数比变换；风化程度指数；Theil-Sen 稳健回归；bootstrap 预测区间</p>
+<h2>1 问题重述</h2>
+<p>高钾玻璃与铅钡玻璃是两类典型中国古代玻璃体系，长期埋藏后表面会发生不同程度的风化，导致化学成分比例改变。题目给出三类数据：表单 1（58 件文物的类型、纹饰、颜色、表面风化信息）、表单 2（69 条采样点的 14 种化学成分检测记录，标注未风化点/严重风化点）、表单 3（8 件待鉴别文物的成分数据）。</p>
+<p>本文研究问题一的后半部分：</p>
+<ol>
+<li><strong>统计规律</strong>：结合玻璃类型，分析文物表面有无风化与其化学成分含量之间的统计规律；</li>
+<li><strong>成分还原</strong>：依据风化点的检测数据，预测其风化前的化学成分含量。</li>
+</ol>
+<h2>2 问题分析</h2>
+<p>问题一后半部分需要回答两个层层递进的子问题。<strong>第一子问题</strong>是组间比较：对每种玻璃类型，比较风化样本与未风化样本在 14 种成分上的分布差异。由于样本量小（高钾玻璃有效 18 条、铅钡 49 条）、成分数据天然受"总和约束"（各成分之和须为 100%）、且多重比较会放大假阳性，直接做逐成分 t 检验既不稳健也不完整。为此需要：先做闭合归一化消除总量漂移；再采用不依赖正态假定的非参数检验，并同步报告效应量与 FDR 校正结果；最后用成分数据专用的 CLR 变换做敏感性分析，确认结论不是闭合效应的伪像。</p>
+<p><strong>第二子问题</strong>是回归预测：对 32 个风化采样点（高钾 6、铅钡 26）还原其风化前成分。风化前状态的数据来自无风化文物与风化文物上的未风化点，两类点能否合并为"风化前"参照组需要先做等价性检验。建模的核心困难在于：风化点与风化前点并非一一配对观测，只能利用"同类型内成分分布"的信息建立映射。本文的思路是：若风化在类型内具有相对稳定的成分变化模式，则同类型内风化点与风化前点在各自经验分布中的相对位置（分位数）应当对应，据此构造分位数配对并做稳健回归；同时以不依赖配对假设的均值比例缩放法作对照。预测的不确定性用联合 bootstrap 区间显式刻画，模型的可靠性用留一文物配对验证、经验区间覆盖与排序一致性检验。</p>
+<p>总体技术路线如图 1。</p>
+<p><img alt="总体技术路线" src="严谨版/图/建模流程图.png" /></p>
+<p class="fig-cap"><strong>图 1　问题一后半部分总体技术路线</strong></p>
+<h2>3 模型假设</h2>
+<ol>
+<li>附件检测数据真实可靠；按题设，14 种成分累加和处于 [85%, 105%] 的记录视为有效，越界记录剔除；</li>
+<li>检测值空白表示该成分未检测到（低于检出限），记为 0，不做删行或插补；</li>
+<li>同类型玻璃的成分空间相近，风化引起的成分变化在同类型内具有稳定映射规律；</li>
+<li>风化点与风化前点在各自经验分布中的相对位置（分位数）相互对应；</li>
+<li>风化文物上标注的"未风化点"与无风化文物的采样点总体同分布，可合并为"风化前"参照组（第 4 节经检验支持）;</li>
+<li>"严重风化点"标签反映取样部位（取自风化层），其成分观测仍属于风化状态总体，不单独建组。</li>
+</ol>
+<h2>4 符号说明</h2>
+<table>
+<thead>
+<tr>
+<th>符号</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>x_ij</td>
+<td>第 i 条记录第 j 种成分的原始检测值（%）</td>
+</tr>
+<tr>
+<td>\tildex_ij</td>
+<td>闭合归一化后的成分含量（%）</td>
+</tr>
+<tr>
+<td>z_ij</td>
+<td>第 j 种成分按风化前组标准化后的得分</td>
+</tr>
+<tr>
+<td>v</td>
+<td>风化方向向量（一般风化组与风化前组标准化均值之差）</td>
+</tr>
+<tr>
+<td>I_i</td>
+<td>第 i 条记录的风化程度指数</td>
+</tr>
+<tr>
+<td>p_k</td>
+<td>分位数配对所用的第 k 个分位点</td>
+</tr>
+<tr>
+<td>a_j, b_j</td>
+<td>第 j 种成分 Theil-Sen 回归的截距与斜率</td>
+</tr>
+<tr>
+<td>k_j</td>
+<td>模型二中第 j 种成分的均值比例缩放系数</td>
+</tr>
+<tr>
+<td>\delta</td>
+<td>Cliff's δ 效应量（风化后相对风化前的方向）</td>
+</tr>
+<tr>
+<td>q</td>
+<td>Benjamini-Hochberg FDR 校正后的 p 值</td>
+</tr>
+<tr>
+<td>ρ</td>
+<td>Spearman 秩相关系数</td>
+</tr>
+</tbody>
+</table>
+<h2>5 数据预处理</h2>
+<h3>5.1 有效性筛选与缺失处理</h3>
+<p>表单 2 共 69 条采样记录。按题设，14 种成分累加和处于 [85%, 105%] 的记录视为有效，据此剔除 2 条越界记录，保留 <strong>67 条有效数据</strong>，其中高钾玻璃 18 条、铅钡玻璃 49 条。检测值空白表示未检测到该成分，按低于检出限记 0 处理，不做删行或插补，以保留小样本信息。</p>
+<h3>5.2 闭合归一化</h3>
+<p>成分检测值总和存在漂移（未严格等于 100%），直接用原始值比较会混入总量因素。将每条记录归一化至 100%：</p>
+<p class="formula">x̃ᵢⱼ = xᵢⱼ / ( Σₖ xᵢₖ ) × 100%，k = 1,2,…,14</p>
+<p class="formula">后续所有统计分析均在 x̃ 上进行。</p>
+<h3>5.3 成分数据敏感性（CLR 变换）</h3>
+<p class="formula">百分比成分数据受闭合效应约束，任意一元的变动必然牵动其余。为确认第 6 节结论并非闭合效应的伪像，对零值以 0.005% 替代后做中心对数比（CLR）变换：</p>
+<p class="formula">CLR(x)ⱼ = ln[ xⱼ / ( ∏ₖ xₖ )^(1/14) ]，k = 1,2,…,14</p>
+<p class="formula">在 CLR 尺度下重跑全部组间检验作为敏感性分析（结果见 6.3）。</p>
+<h2>6 表面有无风化的化学成分统计规律</h2>
+<h3>6.1 采样点状态划分与"风化前"参照组的合并检验</h3>
+<p>结合表单 1 的"表面风化"字段与表单 2 的采样点标注，将 67 条有效数据划入四种状态：</p>
+<table>
+<thead>
+<tr>
+<th>状态</th>
+<th>判定规则</th>
+<th>高钾</th>
+<th>铅钡</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>风化前-无风化文物</td>
+<td>无风化文物的采样点</td>
+<td>12</td>
+<td>13</td>
+</tr>
+<tr>
+<td>风化前-未风化点</td>
+<td>风化文物上标注"未风化点"</td>
+<td>0</td>
+<td>10</td>
+</tr>
+<tr>
+<td>一般风化点</td>
+<td>风化文物的普通采样点</td>
+<td>6</td>
+<td>23</td>
+</tr>
+<tr>
+<td>严重风化点</td>
+<td>标注"严重风化点"（取自风化层）</td>
+<td>0</td>
+<td>3</td>
+</tr>
+</tbody>
+</table>
+<p>风化文物上的"未风化点"与无风化文物的采样点能否合并为"风化前"参照组，直接决定预测建模的样本量。对 14 种成分分别做 Mann-Whitney 检验并做 BH-FDR 校正，<strong>无一成分 q&lt;0.05</strong>，未发现系统差异，支持将二者合并为"风化前"组。由此高钾玻璃风化前组共 12 条、铅钡玻璃 23 条。</p>
+<h3>6.2 检验方法</h3>
+<p>对每种玻璃类型、每种成分，比较"风化前组"与"风化后组"（含严重风化点）：</p>
+<ol>
+<li><strong>Mann-Whitney U 检验</strong>（双侧，α=0.05）：不依赖正态假定，适合小样本与偏态分布；</li>
+<li><strong>Cliff's δ 效应量</strong>：δ = 1 − 2U / ( n₁n₂ )，δ&gt;0 表示风化后普遍更高；|δ|&lt;0.147 可忽略，&lt;0.33 为小，&lt;0.474 为中，否则为大；</li>
+<li><strong>FDR 校正</strong>：类型内 14 项检验做 Benjamini-Hochberg 校正，以 q&lt;0.05 判显著，控制错误发现率；</li>
+<li><strong>CLR 敏感性分析</strong>：在 CLR 尺度下重跑全部检验，核对结论对成分变换的稳健性。</li>
+</ol>
+<h3>6.3 检验结果</h3>
+<p>高钾玻璃的显著成分见表 2，风化前后分布对比见图 2；铅钡玻璃的显著成分见表 3，分布对比见图 3。</p>
+<p class="tbl-cap"><strong>表 2　高钾玻璃风化前 vs 风化后显著成分（FDR 后，q&lt;0.05）</strong></p>
+<table>
+<thead>
+<tr>
+<th>成分</th>
+<th>风化前均值</th>
+<th>风化后均值</th>
+<th>相对变化</th>
+<th>Cliff's δ</th>
+<th>FDR q</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SiO2</td>
+<td>65.71</td>
+<td>93.44</td>
+<td>↑ 36.3%</td>
+<td>+1.000（大）</td>
+<td>0.0015</td>
+</tr>
+<tr>
+<td>Al2O3</td>
+<td>6.63</td>
+<td>1.91</td>
+<td>↓ 71.2%</td>
+<td>−0.972（大）</td>
+<td>0.0015</td>
+</tr>
+<tr>
+<td>K2O</td>
+<td>9.72</td>
+<td>0.55</td>
+<td>↓ 94.3%</td>
+<td>−0.861（大）</td>
+<td>0.0196</td>
+</tr>
+<tr>
+<td>P2O5</td>
+<td>1.44</td>
+<td>0.28</td>
+<td>↓ 80.3%</td>
+<td>−0.736（大）</td>
+<td>0.0420</td>
+</tr>
+<tr>
+<td>MgO</td>
+<td>1.08</td>
+<td>0.19</td>
+<td>↓ 82.1%</td>
+<td>−0.722（大）</td>
+<td>0.0420</td>
+</tr>
+</tbody>
+</table>
+<p><img alt="高钾玻璃风化前后成分分布箱线图" src="严谨版/图/箱线图_高钾.png" /></p>
+<p class="fig-cap"><strong>图 2　高钾玻璃风化前后主要成分分布箱线图（闭合归一化尺度）</strong></p>
+<p class="tbl-cap"><strong>表 3　铅钡玻璃风化前 vs 风化后显著成分（FDR 后，q&lt;0.05）</strong></p>
+<table>
+<thead>
+<tr>
+<th>成分</th>
+<th>风化前均值</th>
+<th>风化后均值</th>
+<th>相对变化</th>
+<th>Cliff's δ</th>
+<th>FDR q</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SiO2</td>
+<td>55.44</td>
+<td>24.19</td>
+<td>↓ 53.9%</td>
+<td>−0.933（大）</td>
+<td>&lt;0.0001</td>
+</tr>
+<tr>
+<td>PbO</td>
+<td>21.71</td>
+<td>43.16</td>
+<td>↑ 98.8%</td>
+<td>+0.843（大）</td>
+<td>&lt;0.0001</td>
+</tr>
+<tr>
+<td>P2O5</td>
+<td>1.05</td>
+<td>5.24</td>
+<td>↑ 398.9%</td>
+<td>+0.639（大）</td>
+<td>0.0006</td>
+</tr>
+<tr>
+<td>CaO</td>
+<td>1.30</td>
+<td>2.71</td>
+<td>↑ 108.8%</td>
+<td>+0.517（大）</td>
+<td>0.0071</td>
+</tr>
+<tr>
+<td>Na2O</td>
+<td>1.82</td>
+<td>0.23</td>
+<td>↓ 87.1%</td>
+<td>−0.338（小）</td>
+<td>0.0324</td>
+</tr>
+</tbody>
+</table>
+<p><img alt="铅钡玻璃风化前后成分分布箱线图" src="严谨版/图/箱线图_铅钡.png" /></p>
+<p class="fig-cap"><strong>图 3　铅钡玻璃风化前后主要成分分布箱线图（闭合归一化尺度）</strong></p>
+<p><strong>规律解读</strong>：高钾玻璃（SiO2-K2O 体系）风化时，可溶性的钾、镁、铝、磷组分经水-土作用大量流失，难溶的二氧化硅骨架留存，占比被动抬高——这是"流失富集"型风化。铅钡玻璃（PbO-BaO-SiO2 体系）网络结构不稳定，风化时富硅骨架溶解流失，同时环境中的磷、钙渗入沉积，PbO、BaO 等难溶组分占比被动升高——这是"溶蚀渗入"型风化。<strong>两类玻璃的风化方向截然相反</strong>（高钾 SiO2 上升、铅钡 SiO2 下降），与二者助熔剂体系及网络结构的化学差异相符，也提示对风化点直接判型会产生系统偏差，必须先"还原"再判别，这为问题二的方法设计提供了依据。</p>
+<p><strong>稳健性</strong>：10 项显著成分中 9 项在 CLR 变换下保持显著，唯一例外是铅钡 Na2O（含量低于 2%，零值替代敏感）；其余结论差异均出现在原本不显著的边缘成分。上述显著规律对成分变换的选择稳健。</p>
+<h2>7 风化程度指数：从"有/无"到"连续进程"</h2>
+<h3>7.1 指数构造</h3>
+<p>"有/无风化"的二分标签丢失了程度信息。仅用第 6 节中 FDR 显著、且在风化前组非退化的成分（高钾：SiO2、K2O、MgO、Al2O3、P2O5；铅钡：SiO2、Na2O、CaO、PbO、P2O5），构造连续型风化程度指数：</p>
+<ol>
+<li>各成分按风化前组标准化：zᵢⱼ = ( x̃ᵢⱼ − μⱼ ) / sⱼ；</li>
+<li>定义<strong>风化方向</strong>（严重风化点不参与定义，避免极端值主导）：</li>
+</ol>
+<p class="formula">v = z̄ 一般风化 − z̄ 风化前</p>
+<ol>
+<li>指数取样本在风化方向上的投影：</li>
+</ol>
+<p class="formula">Iᵢ = ( zᵢᵀ v ) / ( vᵀ v )</p>
+<p>刻度含义：I=0 为风化前组平均水平，I=1 为一般风化组平均水平，I 越大风化越深。</p>
+<h3>7.2 稳健性检查</h3>
+<p class="tbl-cap"><strong>表 4　风化程度指数的三重稳健性检查</strong></p>
+<table>
+<thead>
+<tr>
+<th>检查</th>
+<th>高钾</th>
+<th>铅钡</th>
+<th>结论</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PC1 对照指数与原指数的 Spearman ρ</td>
+<td>0.915</td>
+<td>0.718</td>
+<td>指数不依赖方向定义的具体选择</td>
+</tr>
+<tr>
+<td>留一重建方向后排序稳定性（最小 ρ）</td>
+<td>1.000</td>
+<td>0.996</td>
+<td>排序对单点剔除高度稳定</td>
+</tr>
+<tr>
+<td>风化前组噪声地板 |I| 的 95% 分位 vs 风化组离散度</td>
+<td>0.540 vs 0.080</td>
+<td>0.656 vs 0.400</td>
+<td>风化信号整体高于噪声地板</td>
+</tr>
+</tbody>
+</table>
+<p>三项检查表明：指数的排序不因方向定义方法（统计方向 vs 主成分方向）或个别样本的增删而改变；除高钾风化组内部离散度偏小（见第 10 节局限）外，风化信号整体高于风化前组的自然波动（噪声地板）。</p>
+<h3>7.3 标签盲检验与剂量-反应关系</h3>
+<p><strong>标签盲检验</strong>：3 个严重风化点的标签未参与指数建模，将其作为"盲样"投回铅钡 26 个风化点中检验：54 号排第 1（I=1.744，成分偏移远超所有一般风化点）；08 号排第 10（I=1.209）、26 号排第 15（I=1.068），高于均值但未达极端。说明<strong>"严重风化点"标签反映取样部位（风化层），与成分偏移幅度相关但不等价</strong>——判断风化深浅应以成分连续测度为准，而非依赖部位标签。</p>
+<p><strong>剂量-反应检验</strong>：对风化点（含严重）做 Spearman(I, 成分) 并 FDR 校正，单调趋势显著的成分——高钾：SiO2（ρ=0.943）、Al2O3（ρ=−1.000）；铅钡：SiO2（ρ=−0.627）、P2O5（ρ=0.630）、CaO（ρ=0.602）、Na2O（ρ=−0.470）、PbO（ρ=0.463），均 q&lt;0.05。即第 6 节的规律不仅"组间有差"，而且沿风化程度<strong>单调渐变</strong>，统计规律由"两档对比"升级为"剂量-反应"关系。</p>
+<p><strong>同文物配对佐证</strong>：49 号文物风化点 I=1.248 对其未风化点 0.237，50 号 1.326 对 0.646——同一器物内部成分沿风化方向一致移动。50 号未风化点指数偏高（0.646）提示其已偏离"原始状态"，这与后文其预测验证误差偏大相一致。</p>
+<p>各采样点风化程度指数及严重风化点盲检验位置见图 4。</p>
+<p><img alt="风化程度指数轨迹图" src="严谨版/图/风化程度指数_轨迹.png" /></p>
+<p class="fig-cap"><strong>图 4　各采样点风化程度指数轨迹（按指数排序，标注严重风化点盲检验位置）</strong></p>
+<h2>8 风化前化学成分含量预测</h2>
+<h3>8.1 模型一（主模型）：分位数配对 + Theil-Sen 稳健回归 + bootstrap 区间</h3>
+<p><strong>建模思想</strong>：风化点与风化前点没有逐点配对观测，但若假设 3、4 成立，则同类型内两组经验分布的同一分位点描述的是"同一种成分禀赋"在风化前后的表现，可以通过分位数配对学习风化引起的映射。</p>
+<p><strong>映射构造</strong>：对每种成分 j，将风化前组与风化组的经验分布取同一组分位点 pₖ = (k − 0.5) / K，其中 K = max(m, n, 20)，m, n 为两组样本量，构造配对 (x_(p_k), y_(p_k))。考虑到分位数配对在小样本下可能产生异常配对点，采用 <strong>Theil-Sen 稳健回归</strong>（全部配对点斜率的中位数）拟合线性映射：</p>
+<p>\haty_j=a_j+b_j x_j</p>
+<p>以中位数斜率替代最小二乘，可避免个别异常分位数对拟合的主导。各成分独立预测后按闭合性重新归一化至 100%，预测值裁剪至 [0,100]；风化后几乎恒为 0 的退化成分回退保持原值。</p>
+<p><strong>预测区间</strong>：对"风化组、风化前组"分别重抽样 B=1000 次，每次全流程重建映射、预测并<strong>先闭合归一化再统计分位数</strong>，得到每个采样点每种成分的 90% 区间。区间在每次重抽样中先满足闭合约束再取分位数，因而与点预测的闭合归一化自洽。</p>
+<h3>8.2 模型二（对照）：均值比例缩放法</h3>
+<p>不依赖任何配对假设，直接以风化前组与风化组的均值之比作为缩放系数：</p>
+<p class="formula">kⱼ = ȳⱼᵖʳᵉ / x̄ⱼʷᵗʰ，ŷⱼ = kⱼ xⱼ</p>
+<p>基准含量 ≤0.3% 的成分取 k_j=1（避免小分母放大噪声），预测后同样闭合归一化。该模型相当于"平均意义"上的还原，用作主模型的对照。</p>
+<h3>8.3 检验与结果</h3>
+<p><strong>（1）留一文物配对验证</strong>。49、50 号铅钡文物同时具有风化点与"未风化点"，是天然的验证样本。验证时将该文物的全部采样点从训练数据中剔除（防信息泄漏），用其余数据建模，由其风化点反推风化前成分，再与真实未风化点逐成分对比：</p>
+<p class="tbl-cap"><strong>表 5　留一文物配对验证结果（MAE，百分点）</strong></p>
+<table>
+<thead>
+<tr>
+<th>验证对象</th>
+<th>模型一（Theil-Sen）</th>
+<th>模型二（比例缩放）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>49 号</td>
+<td>2.07</td>
+<td>1.39</td>
+</tr>
+<tr>
+<td>50 号</td>
+<td>2.33</td>
+<td>1.64</td>
+</tr>
+<tr>
+<td><strong>平均</strong></td>
+<td><strong>2.20</strong></td>
+<td><strong>1.51</strong></td>
+</tr>
+</tbody>
+</table>
+<p>两模型的平均绝对误差均不超过 2.5 个百分点，在 14 种成分、含量跨度 0–90%+ 的尺度上具有实用精度。50 号误差大于 49 号，与其未风化点本身指数偏高（0.646，已偏离原始状态）一致——验证"真值"本身含有位移，故表 5 的 MAE 是还原精度的保守上界。</p>
+<p><strong>（2）合理性检查</strong>。</p>
+<ul>
+<li><strong>经验区间覆盖</strong>：关键成分（SiO2、PbO、BaO、K2O、CaO、P2O5）的预测值落入同类型风化前经验区间 [min, max] 的比例为 81%–100%，未出现超出历史波动范围的"幻觉值"；</li>
+<li><strong>排序一致性</strong>：风化后检出 SiO2 越高（风化越轻）→ 还原出的风化前 SiO2 越高，高钾玻璃 ρ=0.943（p=0.005）、铅钡玻璃 ρ=0.979（p&lt;10⁻⁴），还原结果保持了样本间的相对成分秩序；</li>
+<li><strong>方案间一致性</strong>：两模型对全部 32 个风化点 14 种成分的预测平均绝对差仅 1.06 个百分点（Spearman ρ=0.890），两条独立路径给出一致的还原结果，交叉印证。</li>
+</ul>
+<p>32 个风化采样点的还原明细（含各成分 90% bootstrap 区间）见附件 <code>03_风化前预测明细_含bootstrap区间.xlsx</code>，还原前后成分对比与验证散点见图 5。</p>
+<p><img alt="预测验证散点图" src="严谨版/图/预测验证散点图.png" /></p>
+<p class="fig-cap"><strong>图 5　留一验证散点与还原结果示例</strong></p>
+<h2>9 结果汇总</h2>
+<p>综合以上建模，本文对问题一后半部分给出三层结论：</p>
+<ol>
+<li><strong>统计规律</strong>（第 6 节）：高钾玻璃风化的实质是 K2O（−94.3%）、MgO（−82.1%）、Al2O3（−71.2%）、P2O5（−80.3%）等可溶组分流失、SiO2 占比被动抬高（+36.3%）；铅钡玻璃风化的实质是硅骨架溶解流失与环境 P、Ca 渗入，SiO2 下降 53.9%，PbO（+98.8%）、P2O5（+398.9%）、CaO（+108.8%）显著升高。全部结论经 FDR 校正（q&lt;0.05）与 CLR 敏感性验证，且两类玻璃风化方向相反。</li>
+<li><strong>风化程度量化</strong>（第 7 节）：连续风化程度指数（0=风化前均值，1=一般风化均值）经 PC1 对照、留一排序、噪声地板三重检查；"严重风化点"标签（取样部位）与成分偏移幅度相关但不等价；显著成分沿风化程度单调渐变（剂量-反应）。</li>
+<li><strong>成分还原</strong>（第 8 节）：主模型（分位数配对+Theil-Sen）与对照模型（均值比例缩放）对 32 个风化采样点完成风化前成分预测并给出 bootstrap 90% 区间；留一配对验证 MAE 分别为 2.20 与 1.51 个百分点，经验区间覆盖 81%–100%，排序一致性 ρ≥0.94，方案间平均差 1.06 个百分点。</li>
+</ol>
+<h2>10 模型评价与局限性</h2>
+<p><strong>优点</strong>：</p>
+<ol>
+<li>全流程建立在闭合归一化尺度上，统计、指数、预测三个环节口径一致，bootstrap 区间与闭合约束自洽；</li>
+<li>组间比较"检验 + 效应量 + FDR + CLR 敏感性"四位一体，既回答"是否有差"，也回答"差多大""是否多重比较伪像"；</li>
+<li>风化程度指数把分类信息升级为连续进程，并以盲检验揭示"严重风化点"标签的部位属性，纠正了标签误读的可能；</li>
+<li>预测主模型以中位数斜率抗离群，验证协议（留一文物、经验区间、排序一致性、双方案互证）不依赖单一样本，结论可靠性有多重支撑。</li>
+</ol>
+<p><strong>局限性</strong>：</p>
+<ol>
+<li>高钾玻璃风化点仅 6 个且指数高度集中（σ=0.08），其规律与还原结果的不确定性大于铅钡玻璃；高钾风化前组存在个别高硅个体（如 03 部位 1，I=0.70），个体差异会抬高指数噪声地板；</li>
+<li>分位数配对假设"相对排序保持"，当风化剧烈改变成分排序时会产生偏差（54 号等极端点风险最高，其预测区间亦最宽）；</li>
+<li>"未风化点"并非严格的风化前原始状态（不同部位、玻璃本体不均匀），50 号未风化点指数偏高即为例证；</li>
+<li>微量成分（SnO2、SO2 等）信息量不足，预测采用保守回退处理，其区间仅具参考意义；</li>
+<li>留一验证配对仅 2 件文物（49、50 号），模型间精度差异的统计分辨能力有限。</li>
+</ol>
+<h2>11 结论</h2>
+<p>本文针对 2022 年 C 题问题一的后半部分，建立了"闭合归一化—非参数检验—连续风化指数—稳健分布映射还原"的完整流程。研究表明：高钾玻璃与铅钡玻璃的风化化学机制方向相反，前者表现为可溶组分流失、SiO2 相对富集，后者表现为硅骨架流失与磷、钙渗入、铅钡氧化物占比被动升高；风化程度可用连续指数量化，且主要成分沿程度单调渐变；在此规律基础上，分位数配对+Theil-Sen 主模型能以约 2 个百分点以内的平均误差将风化点还原至风化前状态，并为问题二的"先还原、再判别/分亚类"路线提供了可直接使用的数据基础（<code>05_预测宽表_方案A.xlsx</code>）。</p>
+<h2>参考文献</h2>
+<p>[1] Aitchison J. The Statistical Analysis of Compositional Data[M]. London: Chapman and Hall, 1986.</p>
+<p>[2] Mann H B, Whitney D R. On a test of whether one of two random variables is stochastically larger than the other[J]. The Annals of Mathematical Statistics, 1947, 18(1): 50-60.</p>
+<p>[3] Benjamini Y, Hochberg Y. Controlling the false discovery rate: a practical and powerful approach to multiple testing[J]. Journal of the Royal Statistical Society: Series B, 1995, 57(1): 289-300.</p>
+<p>[4] Cliff N. Dominance statistics: Ordinal analyses to answer ordinal questions[J]. Psychological Bulletin, 1993, 114(3): 494-509.</p>
+<p>[5] Sen P K. Estimates of the regression coefficient based on Kendall's tau[J]. Journal of the American Statistical Association, 1968, 63(324): 1379-1389.</p>
+<p>[6] Efron B, Tibshirani R J. An Introduction to the Bootstrap[M]. New York: Chapman &amp; Hall, 1993.</p>
+<h2>附录 A　附件与复现说明</h2>
+<p>本论文全部结果由 <code>08_严谨版完整流程.py</code> 一键复现（依赖 pandas、scipy、matplotlib、openpyxl，随机种子 2022），数据源为 <code>附件.xlsx</code>。产出文件清单：</p>
+<table>
+<thead>
+<tr>
+<th>文件</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>严谨版/01_清洗合并后数据.xlsx</td>
+<td>清洗、状态标注、闭合归一化与 CLR 后的 67 条有效数据</td>
+</tr>
+<tr>
+<td>严谨版/02_统计规律与检验.xlsx</td>
+<td>MW + Cliff's δ + FDR + CLR 敏感性全表</td>
+</tr>
+<tr>
+<td>严谨版/02b_未风化点等价性检验.xlsx</td>
+<td>未风化点 vs 无风化文物点合并依据</td>
+</tr>
+<tr>
+<td>严谨版/03_风化前预测明细_含bootstrap区间.xlsx</td>
+<td>每个风化点×每种成分：检测值、双模型预测、90% 区间</td>
+</tr>
+<tr>
+<td>严谨版/04_模型参数_方案A.xlsx</td>
+<td>各成分 Theil-Sen 系数与 R²</td>
+</tr>
+<tr>
+<td>严谨版/05_预测宽表_方案A.xlsx</td>
+<td>每个风化点还原后的完整 14 成分（主模型）</td>
+</tr>
+<tr>
+<td>严谨版/05b_预测宽表_方案B.xlsx</td>
+<td>每个风化点还原后的完整 14 成分（对照模型）</td>
+</tr>
+<tr>
+<td>严谨版/06_留一配对验证.xlsx</td>
+<td>49、50 号留一验证明细</td>
+</tr>
+<tr>
+<td>严谨版/07_合理性检查_经验区间.xlsx</td>
+<td>关键成分经验区间覆盖比例</td>
+</tr>
+<tr>
+<td>严谨版/07b_排序一致性.xlsx</td>
+<td>检出/还原排序一致性</td>
+</tr>
+<tr>
+<td>严谨版/08_风化程度指数.xlsx</td>
+<td>指数明细、严重风化点盲检验、剂量-反应、同文物配对</td>
+</tr>
+<tr>
+<td>严谨版/图/*.png</td>
+<td>论文图 1–5</td>
+</tr>
+<tr>
+<td>09_流程图.py</td>
+<td>图 1 技术路线图绘制脚本</td>
+</tr>
+<tr>
+<td>建模说明_严谨版.md</td>
+<td>建模过程技术说明</td>
+</tr>
+</tbody>
+</table>
+<footer>p1_partB · 问题一后半部分专项论文 · 附属数据、脚本与结果文件见同目录及 严谨版/ 子目录</footer>
+</div>
+</body>
+</html>
